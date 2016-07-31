@@ -14,9 +14,6 @@ class StockViewSet(viewsets.ModelViewSet):
 
     @list_route(url_path='getstocklist')
     def get_stocks(self, request, *args, **kwargs):
-        # keyword = request.GET.get('keyword', '')
-        # sorttype = request
-
         command = StockCommandSerializer(data=request.GET)
         if not command.is_valid():
             response_message['recode'] = '10001'
@@ -25,6 +22,6 @@ class StockViewSet(viewsets.ModelViewSet):
 
         stocks = StockService().get_stocks(**command.validated_data)
 
-        response_message['data'] = StockSerializer(stocks, many=True)
+        response_message['data'] = StockSerializer(stocks, many=True).data
 
         return Response(response_message)

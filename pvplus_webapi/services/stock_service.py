@@ -1,9 +1,8 @@
 # coding:utf-8
 from django.db.models import Q
 import urllib
-from pvplus_webapi.models.stock import AppStock
-from pvplus_webapi.serializers.stock import StockSerializer
 from pvplus_common.pagecalculator import PageCalculator
+from pvplus_webapi.models.stock import AppStock
 
 stock_url = 'http://qt.gtimg.cn/q={}'
 
@@ -11,8 +10,9 @@ stock_url = 'http://qt.gtimg.cn/q={}'
 class StockService():
     def get_stocks(self, keyword, sorttype, sortno, pindex, psize):
         stocks = AppStock.objects.filter(isdisabled=True)
-        psize = psize if psize <= 30 else 30
 
+        psize = psize if psize <= 30 else 30
+        # 关键字搜索
         if not keyword:
             stocks = stocks.filter(Q(stockname__contains=keyword) | Q(pk_stock__contains=keyword))
 
@@ -22,16 +22,17 @@ class StockService():
             stock = self.get_response(item.stockname, item.pk_stock, item.tradetype)
             stock_dtos.append(stock)
 
-        # stock_dtos = stock_dtos[PageCalculator.start(pindex, psize): PageCalculator.end(pindex, psize)]
+        stock_dtos = stock_dtos[PageCalculator.start(pindex, psize): PageCalculator.end(pindex, psize)]
 
-        # reverse = sortno == 'desc'
-        # sort = ['lastprice', 'changeamount', 'changerate']
-        # key = lambda s: s[sorttype] if sorttype in sort else lambda s: s['lastprice']
+        reverse = sortno == 'desc'
+        sort = ['lastprice', 'changeamount', 'changerate']
+        key = lambda s: s[sorttype] if sorttype in sort else lambda s: s['lastprice']
         # 排序
-        #stock_dtos = sorted(stock_dtos, key=lambda s: s['lastprice'], reverse=reverse)
+        stock_dtos = sorted(stock_dtos, key=key, reverse=reverse)
         # stock_dtos = stock_dtos.sort(key=key, reverse=reverse)
 
         return stock_dtos
+
 
     def get_response(self, stockname, stockcode, tradetype):
         response = urllib.request.urlopen(stock_url.format(tradetype + stockcode))
@@ -57,8 +58,6 @@ class StockService():
         stock_dto['circulatecap'] = convert_to_float(stockinfo[44])
         stock_dto['totalcap'] = convert_to_float(stockinfo[45])
         stock_dto['pbratio'] = convert_to_float(stockinfo[46])
-
-        # stock_serializer = StockSerializer(stock_dto)
 
         return stock_dto
 
