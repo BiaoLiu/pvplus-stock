@@ -21,7 +21,6 @@ class StockViewSet(viewsets.ModelViewSet):
             return Response(response_message)
 
         stocks = StockService().get_stocks(**command.validated_data)
-
         response_message['data'] = StockSerializer(stocks, many=True).data
 
         return Response(response_message)
