@@ -3,10 +3,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.views import Response
 
-from pvplus_webapi.models.stock import AppStock
+from pvplus_common.models import response_message, response_retcode
+from pvplus_model.models.stock import AppStock
 from pvplus_webapi.serializers.stock import StockCommandSerializer, StockSerializer
 from pvplus_webapi.services.stock_service import StockService
-from pvplus_common.models import response_message
 
 
 class StockViewSet(viewsets.ModelViewSet):
@@ -16,7 +16,7 @@ class StockViewSet(viewsets.ModelViewSet):
     def get_stocks(self, request, *args, **kwargs):
         command = StockCommandSerializer(data=request.GET)
         if not command.is_valid():
-            response_message['recode'] = '10001'
+            response_message['recode'] = response_retcode['error']
             response_message['errmsg'] = command.errors
             return Response(response_message)
 

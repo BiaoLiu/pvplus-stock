@@ -1,8 +1,10 @@
 # coding:utf-8
-from django.db.models import Q
 import urllib
-from pvplus_common.pagecalculator import PageCalculator
-from pvplus_webapi.models.stock import AppStock
+
+from django.db.models import Q
+
+from pvplus_common.page_calculator import PageCalculator
+from pvplus_model.models.stock import AppStock
 
 stock_url = 'http://qt.gtimg.cn/q={}'
 
@@ -26,13 +28,13 @@ class StockService():
 
         reverse = sortno == 'desc'
         sort = ['lastprice', 'changeamount', 'changerate']
-        key = lambda s: s[sorttype] if sorttype in sort else lambda s: s['lastprice']
         # 排序
-        stock_dtos = sorted(stock_dtos, key=key, reverse=reverse)
+        sorttype = sorttype if sorttype in sort else 'lastprice'
+
+        stock_dtos = sorted(stock_dtos, key=lambda s: s[sorttype], reverse=reverse)
         # stock_dtos = stock_dtos.sort(key=key, reverse=reverse)
 
         return stock_dtos
-
 
     def get_response(self, stockname, stockcode, tradetype):
         response = urllib.request.urlopen(stock_url.format(tradetype + stockcode))
