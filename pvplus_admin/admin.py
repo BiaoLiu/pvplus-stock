@@ -5,7 +5,24 @@ from django.contrib import admin
 from pvplus_model.models.stock import AppStock
 from pvplus_model.models.question import AppQuestions,AppAnswers,AppListens
 
-admin.site.register(AppStock)
-admin.site.register(AppQuestions)
-admin.site.register(AppAnswers)
-admin.site.register(AppListens)
+
+@admin.register(AppQuestions)
+class QuestionAdmin(admin.ModelAdmin):
+    fields = ('pk_question','get_users')
+    exclude = ('pk_question',)
+
+@admin.register(AppAnswers)
+class AnswerAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(AppListens)
+class ListenAdmin(admin.ModelAdmin):
+    pass
+
+
+
+
+
+# admin.site.register(AppQuestions)
+# admin.site.register(AppAnswers)
+# admin.site.register(AppListens)
