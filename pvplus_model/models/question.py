@@ -13,6 +13,8 @@ class AppListens(models.Model):
 
     class Meta:
         db_table = 'app_listens'
+        verbose_name = '偷听'
+        verbose_name_plural = '偷听列表'
 
 
 class AppQuestionComments(models.Model):
@@ -47,7 +49,7 @@ QUESTION_MODE = (
 class AppQuestions(models.Model):
     pk_question = models.CharField('问答id', primary_key=True, max_length=40)
     pk_user = models.CharField('用户id', max_length=40, blank=True, null=True)
-    content = models.TextField('提问内容', null=True,)
+    content = models.TextField('提问内容', null=True, )
     questionmode = models.CharField('提问方式', choices=QUESTION_MODE, max_length=20, null=True)
     questionrelate = models.CharField('提问相关', max_length=20, blank=True, null=True)
     pk_respondent = models.CharField('回复者id', max_length=40, blank=True, null=True)
@@ -64,28 +66,24 @@ class AppQuestions(models.Model):
 
     class Meta:
         db_table = 'app_questions'
-        verbose_name_plural = verbose_name = '问答'
-
-    def get_author(self):
-        pass
-        # return AppUserProfile.objects.filter(pk_user=self.pk_user)
-
-    def get_users(self):
-        return AppUserProfile.objects.filter(isverified=True)
+        verbose_name = '问答'
+        verbose_name_plural = '问答列表'
 
     def __str__(self):
         return self.content
 
 
 class AppAnswers(models.Model):
-    pk_answer = models.CharField(primary_key=True, max_length=40)
-    pk_question = models.CharField(max_length=40, blank=True, null=True)
-    pk_user = models.CharField(max_length=40, blank=True, null=True)
-    voice = models.CharField(max_length=200, blank=True, null=True)
-    duration = models.IntegerField(blank=True, null=True)
-    content = models.TextField(blank=True, null=True)
-    isbest = models.IntegerField(blank=True, null=True)
-    createtime = models.DateTimeField(blank=True, null=True)
+    pk_answer = models.CharField('回答id', primary_key=True, max_length=40)
+    pk_question = models.CharField('提问id', max_length=40, blank=True, null=True)
+    pk_user = models.CharField('用户id', max_length=40, blank=True, null=True)
+    voice = models.CharField('音频路径', max_length=200, blank=True, null=True)
+    duration = models.IntegerField('时长', blank=True, null=True)
+    content = models.TextField('文本内容', blank=True, null=True)
+    isbest = models.NullBooleanField('是否最佳', blank=True, null=True)
+    createtime = models.DateTimeField('创建时间', blank=True, auto_created=True, null=True)
 
     class Meta:
         db_table = 'app_answers'
+        verbose_name = '回答'
+        verbose_name_plural = '回答列表'

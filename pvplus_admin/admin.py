@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from pvplus_admin.forms import QuestionForm
+from pvplus_admin.forms import QuestionForm, AnswerForm
 from pvplus_model.models.stock import AppStock
 from pvplus_model.models.question import AppQuestions,AppAnswers,AppListens
 import uuid
@@ -27,7 +27,19 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(AppAnswers)
 class AnswerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk_answer','voice','duration','content')
+    fields = ('user','question','voice','duration','content','isbest')
+    form = AnswerForm
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.pk_answer = str(uuid.uuid1()).replace('-', '')
+
+        obj.pk_user = form.cleaned_data['user']
+        obj.pk_question = form.cleaned_data['question']
+
+        obj.save()
+
 
 
 @admin.register(AppListens)
