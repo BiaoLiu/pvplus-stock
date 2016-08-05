@@ -37,23 +37,30 @@ class AppQuestionGoods(models.Model):
         db_table = 'app_question_goods'
 
 
+QUESTION_MODE = (
+    ('free', '免费提问'),
+    ('push', '付费提问'),
+    ('onetoone', '一对一提问')
+)
+
+
 class AppQuestions(models.Model):
     pk_question = models.CharField('问答id', primary_key=True, max_length=40)
     pk_user = models.CharField('用户id', max_length=40, blank=True, null=True)
-    content = models.TextField('提问内容', blank=True, null=True)
-    questionmode = models.CharField('提问方式', max_length=20, blank=True, null=True)
+    content = models.TextField('提问内容', null=True,)
+    questionmode = models.CharField('提问方式', choices=QUESTION_MODE, max_length=20, null=True)
     questionrelate = models.CharField('提问相关', max_length=20, blank=True, null=True)
     pk_respondent = models.CharField('回复者id', max_length=40, blank=True, null=True)
-    listennum = models.IntegerField('偷听人数', blank=True, null=True)
-    isopen = models.NullBooleanField('是否公开', blank=True, null=True)
+    listennum = models.IntegerField('偷听人数', null=True, default=0)
+    isopen = models.NullBooleanField('是否公开', null=True)
     iscommented = models.NullBooleanField('是否已评论', blank=True, null=True)
-    question_price = models.DecimalField('提问价格', max_digits=18, decimal_places=4, blank=True, null=True)
-    listen_price = models.DecimalField('偷听价格', max_digits=18, decimal_places=4, blank=True, null=True)
-    isaudit = models.NullBooleanField('是否审核', blank=True, null=True)
-    goodnum = models.IntegerField('点赞数', blank=True, null=True)
+    question_price = models.DecimalField('提问价格', max_digits=18, decimal_places=4, null=True)
+    listen_price = models.DecimalField('偷听价格', max_digits=18, decimal_places=4, null=True)
+    isaudit = models.NullBooleanField('是否审核', null=True)
+    goodnum = models.IntegerField('点赞数', null=True, default=0)
     status = models.IntegerField('状态', blank=True, null=True)
-    createtime = models.DateTimeField('创建时间', blank=True, null=True)
-    updatetime = models.DateTimeField('更新时间', blank=True, null=True)
+    createtime = models.DateTimeField('创建时间', blank=True, null=True, auto_now_add=True)
+    updatetime = models.DateTimeField('更新时间', blank=True, null=True, auto_now=True)
 
     class Meta:
         db_table = 'app_questions'

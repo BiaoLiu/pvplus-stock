@@ -1,19 +1,34 @@
 from django.contrib import admin
 
 # Register your models here.
-
+from pvplus_admin.forms import QuestionForm
 from pvplus_model.models.stock import AppStock
 from pvplus_model.models.question import AppQuestions,AppAnswers,AppListens
+import uuid
 
 
 @admin.register(AppQuestions)
 class QuestionAdmin(admin.ModelAdmin):
-    fields = ('pk_question','get_users')
-    exclude = ('pk_question',)
+    list_display = ('pk_question','content')
+    fields = ('user','questionmode','questionrelate','content','respondent','question_price','listen_price',
+              'listennum','goodnum','isopen','isaudit')
+    # exclude = ('pk_user','pk_question','pk_respondent','status','updatetime')
+    form = QuestionForm
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.pk_question = str(uuid.uuid1()).replace('-','')
+
+        obj.pk_user= form.cleaned_data['user']
+        obj.pk_respondent = form.cleaned_data['respondent']
+
+        obj.save()
+
 
 @admin.register(AppAnswers)
 class AnswerAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(AppListens)
 class ListenAdmin(admin.ModelAdmin):
