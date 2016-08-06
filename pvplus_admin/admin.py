@@ -12,7 +12,7 @@ from pvplus_model.models.question import AppQuestions, AppAnswers, AppListens
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('pk_question', 'content')
     fields = ('pk_user', 'questionmode', 'questionrelate', 'content', 'pk_respondent', 'question_price', 'listen_price',
-              'listennum', 'goodnum', 'isopen', 'isaudit')
+              'listennum', 'goodnum', 'isopen', 'isaudited')
     # exclude = ('pk_user','pk_question','pk_respondent','status','updatetime')
     form = QuestionForm
 

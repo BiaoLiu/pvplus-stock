@@ -23,7 +23,7 @@ def get_stocks():
 
 def get_question():
     """获取提问列表"""
-    questions = AppQuestions.objects.filter(Q(isaudit=True) & Q(isopen=True)).values_list('pk_question', 'content')
+    questions = AppQuestions.objects.filter(Q(isaudited=True) & Q(isopen=True)).values_list('pk_question', 'content')
     return tuple(questions)
 
 def get_perspects():

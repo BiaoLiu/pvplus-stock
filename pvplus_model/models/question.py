@@ -73,7 +73,7 @@ class AppQuestions(models.Model):
     iscommented = models.NullBooleanField('是否已评论', blank=True, null=True)
     question_price = models.DecimalField('提问价格', max_digits=18, decimal_places=4, null=True)
     listen_price = models.DecimalField('偷听价格', max_digits=18, decimal_places=4, null=True)
-    isaudit = models.NullBooleanField('是否审核', null=True)
+    isaudited = models.NullBooleanField('是否审核', null=True)
     goodnum = models.IntegerField('点赞数', null=True, default=0)
     status = models.IntegerField('状态', blank=True, null=True)
     createtime = models.DateTimeField('创建时间', blank=True, null=True, auto_now_add=True)
