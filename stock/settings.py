@@ -91,6 +91,13 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'liubiao287536'
     }
+    # 'default': {
+    #     'NAME': 'PvPlus_StockTest2',
+    #     'ENGINE': 'sqlserver_ado',
+    #     'HOST': '119.29.144.39',
+    #     'USER': 'sa',
+    #     'PASSWORD': 'PvPlus2015',
+    # }
 }
 
 
