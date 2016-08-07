@@ -4,20 +4,6 @@ from django.db import models
 from pvplus_model.models.user import AppUserProfile
 from pvplus_common.string_extension import get_uuid
 
-class string_with_title(str):
-    """ 用来修改admin中显示的app名称,因为admin app 名称是用 str.title()显示的,
-    所以修改str类的title方法就可以实现.
-    """
-    def __new__(cls, value, title):
-        instance = str.__new__(cls, value)
-        instance._title = title
-        return instance
-
-    def title(self):
-        return self._title
-
-    __copy__ = lambda self: self
-    __deepcopy__ = lambda self, memodict: self
 
 class AppListens(models.Model):
     pk_listen = models.CharField('id', primary_key=True, default=get_uuid(), max_length=40)
@@ -83,6 +69,7 @@ class AppQuestions(models.Model):
         db_table = 'app_questions'
         verbose_name = '提问'
         verbose_name_plural = '提问列表'
+
 
     def __str__(self):
         return self.content

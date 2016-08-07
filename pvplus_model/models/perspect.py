@@ -1,7 +1,6 @@
 # coding:utf-8
 from django.db import models
 from pvplus_common.string_extension import get_uuid
-from pvplus_admin.forms import base_form
 from pvplus_model.models.user import AppUserProfile
 
 

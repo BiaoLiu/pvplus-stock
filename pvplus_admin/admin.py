@@ -14,6 +14,7 @@ class QuestionAdmin(admin.ModelAdmin):
     fields = ('pk_user', 'questionmode', 'questionrelate', 'content', 'pk_respondent', 'question_price', 'listen_price',
               'listennum', 'goodnum', 'isopen', 'isaudited')
     # exclude = ('pk_user','pk_question','pk_respondent','status','updatetime')
+    # raw_id_fields = ('pk_user',)
     form = QuestionForm
 
     # def save_model(self, request, obj, form, change):

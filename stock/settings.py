@@ -92,11 +92,15 @@ DATABASES = {
         'PASSWORD': 'liubiao287536'
     }
     # 'default': {
-    #     'NAME': 'PvPlus_StockTest2',
+    #     'NAME': 'PvPlus_Stock',
     #     'ENGINE': 'sqlserver_ado',
     #     'HOST': '119.29.144.39',
     #     'USER': 'sa',
     #     'PASSWORD': 'PvPlus2015',
+    #     'OPTIONS':{
+    #         'provider': 'SQLCLI10',  # Have also tried 'SQLCLI11' and 'SQLOLEDB'
+    #         'extra_params': 'DataTypeCompatibility=80'
+    #     }
     # }
 }
 
