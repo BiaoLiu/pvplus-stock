@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'pvplus_model',
     'pvplus_webapi',
     'pvplus_admin',
+    'pvplus_web',
 ]
 
 MIDDLEWARE_CLASSES = [
