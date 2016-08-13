@@ -70,7 +70,6 @@ class AppQuestions(models.Model):
         verbose_name = '提问'
         verbose_name_plural = '提问列表'
 
-
     def __str__(self):
         return self.content
 
@@ -81,9 +80,11 @@ class AppAnswers(models.Model):
     pk_user = models.CharField('用户id', max_length=40, blank=True, null=True)
     voice = models.CharField('音频路径', max_length=200, blank=True, null=True)
     duration = models.IntegerField('时长', blank=True, null=True)
+    picture = models.CharField(max_length=200, blank=True, null=True)
     content = models.TextField('文本内容', blank=True, null=True)
     isbest = models.NullBooleanField('是否最佳', null=True)
     createtime = models.DateTimeField('创建时间', blank=True, auto_now_add=True, null=True)
+    updatetime = models.DateTimeField('更新时间', blank=True, auto_now=True, null=True)
 
     class Meta:
         db_table = 'app_answers'

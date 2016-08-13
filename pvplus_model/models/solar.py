@@ -27,3 +27,12 @@ class AppInfoSolar(models.Model):
     class Meta:
         db_table = 'app_info_solar'
 
+
+class AppInfoGoods(models.Model):
+    pk_key = models.CharField(primary_key=True, max_length=40)
+    pk_user = models.CharField(max_length=40, blank=True, null=True)
+    createtime = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'app_info_goods'

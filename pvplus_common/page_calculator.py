@@ -1,5 +1,6 @@
 # coding:utf-8
 
+
 class PageCalculator():
     @staticmethod
     def start(pindex: int, psize: int) -> int:
@@ -8,3 +9,6 @@ class PageCalculator():
     @staticmethod
     def end(pindex: int, psize: int) -> int:
         return pindex * psize
+
+
+

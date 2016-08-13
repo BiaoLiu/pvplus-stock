@@ -4,4 +4,4 @@ from django.db import models
 
 response_retcode = {'success': 10000, 'error': '10001'}
 
-response_message = {'recode': response_retcode['success'], 'errmsg': '', 'data': ''}
+response_message = {'recode': response_retcode['success'], 'errmsg': '', 'total': 0, 'data': ''}
