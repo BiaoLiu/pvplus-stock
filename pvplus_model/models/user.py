@@ -40,7 +40,6 @@ class AppUserProfile(models.Model):
     tags = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=18, decimal_places=2, blank=True, null=True)
     income = models.DecimalField(max_digits=18, decimal_places=2, blank=True, null=True)
-    usertype = models.CharField(max_length=20, blank=True, null=True)
     contract = models.CharField(max_length=50, blank=True, null=True)
     companyname = models.CharField(max_length=100, blank=True, null=True)
     jobposition = models.CharField(max_length=100, blank=True, null=True)

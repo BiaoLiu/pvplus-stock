@@ -23,7 +23,7 @@ class StockViewSet(viewsets.ModelViewSet):
         #     response_message['errmsg'] = command.errors
         #     return Response(response_message)
 
-        stocks = StockService().get_stocks(**kwargs['command'].validated_data)
+        stocks = StockService().get_stocks(**kwargs['command'])
         response_message['data'] = StockSerializer(stocks, many=True).data
 
         return Response(response_message)
